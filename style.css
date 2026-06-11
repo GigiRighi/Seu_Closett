@@ -1,0 +1,251 @@
+/* --- VARIÁVEIS E CONFIGURAÇÕES GERAIS --- */
+:root {
+    --pink: #ff007f;
+    --dark-pink: #800040;
+    --black: #000000;
+    --white: #ffffff;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Montserrat', sans-serif; 
+}
+
+body { 
+    background-color: var(--black); 
+    color: var(--white); 
+    overflow-x: hidden; 
+}
+
+/* --- CABEÇALHO (DESKTOP) --- */
+header {
+    background: white; 
+    color: black; 
+    padding: 10px 5%;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    position: sticky; 
+    top: 0; 
+    z-index: 1000; 
+    border-bottom: 3px solid var(--pink);
+}
+
+.logo-text { font-weight: 900; color: var(--pink); }
+.logo-container { display: flex; align-items: center; gap: 8px; }
+.desktop-nav a { text-decoration: none; color: black; font-weight: bold; font-size: 0.8rem; transition: color 0.2s; }
+.desktop-nav a:hover { color: var(--pink); }
+
+/* --- CONTROLE DE EXIBIÇÃO DE SEÇÕES (SINGLE PAGE) --- */
+section { 
+    display: none; 
+    min-height: 85vh; 
+    padding: 40px 20px; 
+    text-align: center; 
+}
+
+/* Força alinhamento centralizado nas seções ativas */
+section.active { 
+    display: flex !important; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+/* --- SEÇÃO: HOME --- */
+#home { background: radial-gradient(circle, var(--dark-pink), var(--black)); }
+.hero h1 { font-size: 3rem; -webkit-text-stroke: 1px white; color: transparent; }
+.hero img { width: 80%; max-width: 300px; border-radius: 20px; box-shadow: 0 0 20px var(--pink); }
+
+/* --- SEÇÃO: LOGIN & CADASTRO --- */
+#login-section {
+    background-image: url('pink_leopard.jpg');
+    background-size: 200px;
+    width: 100%;
+}
+
+.auth-tabs {
+    display: flex; 
+    justify-content: space-around; 
+    margin-bottom: 20px;
+}
+
+.auth-tab-btn {
+    flex: 1;
+    border: none;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    background: #ccc;
+    color: #555;
+}
+
+.auth-tab-btn.active-tab {
+    background: var(--pink);
+    color: white;
+    box-shadow: 0 4px 10px rgba(255, 0, 127, 0.3);
+}
+
+.auth-tab-btn:first-child { margin-right: 5px; }
+.auth-tab-btn:last-child { margin-left: 5px; }
+
+/* --- SEÇÕES: CLOSET & MONTAGEM --- */
+#closet, #montagem {
+    background-image: url('pink_leopard.jpg');
+    background-size: 200px;
+    width: 100%;
+}
+
+.closet-container { 
+    background: rgba(0,0,0,0.9); 
+    padding: 20px; 
+    border-radius: 20px; 
+    border: 3px solid var(--pink); 
+    width: 90%; 
+    max-width: 420px; 
+}
+
+.shelf { 
+    background: #ffc0cb; 
+    height: 300px; 
+    border-radius: 15px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.add-item { 
+    background: var(--dark-pink); 
+    width: 60px; 
+    height: 60px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 2rem; 
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease;
+}
+
+.add-item:active { transform: scale(0.9); }
+
+.montagem-container { 
+    background: white; 
+    color: black; 
+    padding: 20px; 
+    border-radius: 20px; 
+    border: 5px solid var(--pink); 
+    width: 100%; 
+    max-width: 450px;
+}
+
+.item-viewer { height: 150px; display: flex; align-items: center; justify-content: center; }
+.item-viewer img { max-height: 100%; transition: opacity 0.2s ease-in-out; }
+.controls button { background: black; color: white; border: none; padding: 10px 20px; border-radius: 10px; margin: 5px; cursor: pointer; font-weight: bold; }
+
+/* --- LAYOUT DUAS COLUNAS (PROVADOR + GALERIA) --- */
+.looks-page-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 95%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.galeria-looks-container {
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 20px;
+    border: 5px solid var(--pink);
+    width: 100%;
+    max-width: 400px;
+    min-height: 485px;
+    text-align: center;
+}
+
+.galeria-looks-container h3 {
+    color: var(--black);
+    font-weight: 900;
+    font-size: 1.2rem;
+    border-bottom: 2px dashed var(--pink);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.outfits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    max-height: 380px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.outfits-grid::-webkit-scrollbar { width: 6px; }
+.outfits-grid::-webkit-scrollbar-thumb { background-color: var(--pink); border-radius: 10px; }
+
+/* --- BOTÕES EXTRA & DETALHES --- */
+.pink-btn { background: var(--pink); color: white; border: none; padding: 12px; border-radius: 20px; font-weight: bold; width: 100%; cursor: pointer; transition: background 0.2s ease; }
+.pink-btn:hover { background: #e00070; }
+.finish-btn { background: black; color: white; padding: 10px; border-radius: 10px; width: 100%; margin-top: 10px; cursor: pointer; font-weight: bold; }
+
+/* --- SEÇÃO SOBRE --- */
+.about-container { max-width: 500px; margin-top: 20px; }
+.about-image-frame { position: relative; margin-bottom: 20px; }
+.about-image-frame img { width: 100%; max-width: 350px; border-radius: 15px; border: 3px solid var(--pink); }
+.about-tag { background: var(--pink); color: white; font-weight: bold; padding: 5px 10px; display: inline-block; margin-top: 10px; border-radius: 5px; }
+.about-text { font-size: 1.1rem; line-height: 1.5; margin-top: 15px; }
+
+/* --- NAVEGAÇÃO MOBILE --- */
+.mobile-nav {
+    display: none; 
+    position: fixed; 
+    bottom: 0; 
+    width: 100%;
+    background: white; 
+    border-top: 2px solid var(--pink);
+    justify-content: space-around; 
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+.mobile-nav a { 
+    color: black; 
+    text-decoration: none; 
+    font-size: 0.7rem; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    font-weight: bold;
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 850px) {
+    .looks-page-layout {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    .galeria-looks-container {
+        max-width: 450px;
+        min-height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .desktop-nav { display: none; }
+    .mobile-nav { display: flex; }
+    section { padding-bottom: 80px; } 
+}

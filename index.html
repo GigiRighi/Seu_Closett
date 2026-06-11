@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Seu Closet - Monte seu look aqui!</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ff007f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <div class="logo-icon">👗</div>
+            <div class="logo-text">SEU CLOSET <span>MONTE SEU LOOK AQUI!</span></div>
+        </div>
+        <nav class="desktop-nav">
+            <ul style="display: flex; align-items: center; gap: 15px; list-style: none;">
+                <li><a href="#" onclick="showSection('home')">Home</a></li>
+                <li><a href="#" onclick="showSection('sobre')">Sobre</a></li>
+                <li><a href="#" onclick="showSection('closet')">Closet</a></li>
+                <li><a href="#" onclick="showSection('montagem')">Looks</a></li>
+                <li><a href="#" onclick="showSection('contato')">Contato</a></li>
+                
+                <li id="menu-login-item"><a href="#" onclick="showSection('login-section')" style="color: var(--pink);">Login</a></li>
+                
+                <li id="user-info" style="display: none; align-items: center; gap: 10px; font-size: 0.8rem; font-weight: bold; color: black;">
+                    <span>Seja bem-vinda(o), <span id="user-name" style="color: var(--pink);"></span>!</span>
+                    <button onclick="handleLogout()" style="background: black; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.75rem;">Sair</button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="active">
+            <div class="hero">
+                <h1>SEU CLOSET</h1>
+                <div class="about-image-frame" style="margin: 20px 0;">
+                    <img src="cher.jpg" alt="Cher do filme As Patricinhas de Beverly Hills">
+                </div>
+                <button class="pink-btn" onclick="showSection('montagem')">MONTE SEU LOOK</button>
+            </div>
+        </section>
+
+        <section id="login-section">
+            <div class="closet-container" style="background: white; color: black; max-width: 400px; margin: 0 auto; border-radius: 20px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <div class="auth-tabs">
+                    <button id="tab-login" class="auth-tab-btn active-tab" onclick="toggleAuthMode('login')">Login</button>
+                    <button id="tab-cadastro" class="auth-tab-btn" onclick="toggleAuthMode('cadastro')">Cadastrar</button>
+                </div>
+
+                <form id="form-login" onsubmit="handleAuth(event, 'login')">
+                    <h2 style="color: #ff007f; margin-bottom: 15px; font-weight: 900;">ENTRAR</h2>
+                    <input type="email" id="login-email" placeholder="Seu Email:" required style="border: 1px solid #ccc; margin-bottom: 10px; width: 100%; padding: 10px; border-radius: 10px; box-sizing: border-box;">
+                    <input type="password" id="login-senha" placeholder="Sua Senha:" required style="border: 1px solid #ccc; margin-bottom: 15px; width: 100%; padding: 10px; border-radius: 10px; box-sizing: border-box;">
+                    <button type="submit" class="pink-btn" style="width: 100%;">Entrar ✨</button>
+                </form>
+
+                <form id="form-cadastro" onsubmit="handleAuth(event, 'cadastro')" style="display: none;">
+                    <h2 style="color: #ff007f; margin-bottom: 15px; font-weight: 900;">CRIAR CONTA</h2>
+                    <input type="text" id="cad-nome" placeholder="Nome Completo:" required style="border: 1px solid #ccc; margin-bottom: 10px; width: 100%; padding: 10px; border-radius: 10px; box-sizing: border-box;">
+                    <input type="email" id="cad-email" placeholder="Seu Email:" required style="border: 1px solid #ccc; margin-bottom: 10px; width: 100%; padding: 10px; border-radius: 10px; box-sizing: border-box;">
+                    <input type="password" id="cad-senha" placeholder="Crie uma Senha:" required style="border: 1px solid #ccc; margin-bottom: 15px; width: 100%; padding: 10px; border-radius: 10px; box-sizing: border-box;">
+                    <button type="submit" class="pink-btn" style="width: 100%;">Cadastrar 💖</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="sobre">
+            <div class="about-container">
+                <div class="about-image-frame">
+                    <img src="about_closet.jpg" alt="Garota escolhendo roupas">
+                    <div class="about-tag">Estilo Y2K</div>
+                </div>
+                <h2 style="color: #ff007f; font-weight: 900; margin-top: 15px;">QUEM SOMOS</h2>
+                <p class="about-text">
+                    Inspirado no guarda-roupa icônico de <i>As Patricinhas de Beverly Hills</i>, o <b>Seu Closet</b> nasceu para revolucionar a forma como você escolhe seus looks diários! Combine suas peças de forma rápida, divertida e totalmente personalizada. O seu estilo Y2K está a apenas um clique de distância!
+                </p>
+            </div>
+        </section>
+
+        <section id="closet">
+            <div class="closet-container">
+                <h2 style="color: #ff007f; margin-bottom: 20px;">MEU CLOSET</h2>
+                
+                <div class="shelf">
+                    <label class="add-item" style="cursor: pointer;">
+                        ➕
+                        <input type="file" accept="image/*" capture="environment" id="camera-input" style="display: none;">
+                    </label>
+                </div>
+                
+                <div id="upload-controls" style="display: none; margin-top: 15px;">
+                    <p style="font-size: 0.9rem; margin-bottom: 10px; color: white;">Nome da Peça:</p>
+                    <input type="text" id="nome-roupa" placeholder="Ex: Blusa Rosa Y2K" style="width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #ccc; margin-bottom: 15px; font-weight: bold;">
+
+                    <p style="font-size: 0.9rem; margin-bottom: 10px; color: white;">Categoria da peça (id_categoria):</p>
+                    <select id="piece-type" style="width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #ccc; margin-bottom: 15px; font-weight: bold; background: white; color: black;">
+                        <option value="top">1 - Parte Superior</option>
+                        <option value="bottom">2 - Parte Inferior</option>
+                    </select>
+                    <button class="pink-btn" onclick="saveUploadedPiece()">Salvar no Banco e Montar Look ✨</button>
+                </div>
+
+                <p id="upload-tip" style="font-size: 0.9rem; color: #aaa; margin-top: 15px;">Toque no "+" para abrir a câmara e tirar foto da sua roupa!</p>
+            </div>
+        </section>
+
+        <section id="montagem">
+            <div class="looks-page-layout">
+                
+                <div class="montagem-container">
+                    <h2 style="color: #ff007f; margin-bottom: 15px; font-size: 1.5rem;">PROVADOR DIGITAL</h2>
+                    
+                    <div class="item-viewer">
+                        <img id="top-img" src="https://www.pngall.com/wp-content/uploads/2016/04/T-Shirt-PNG-HD.png" alt="Parte Superior">
+                    </div>
+                    <div class="controls">
+                        <button onclick="changeItem('top', -1)">◀ Voltar</button>
+                        <button onclick="changeItem('top', 1)">Avançar ▶</button>
+                    </div>
+
+                    <div class="item-viewer" style="margin-top: 20px;">
+                        <img id="bottom-img" src="https://www.pngall.com/wp-content/uploads/2016/03/Skirt-PNG-File.png" alt="Parte Inferior">
+                    </div>
+                    <div class="controls">
+                        <button onclick="changeItem('bottom', -1)">◀ Voltar</button>
+                        <button onclick="changeItem('bottom', 1)">Avançar ▶</button>
+                    </div>
+
+                    <button class="finish-btn" onclick="saveCurrentOutfit()">SALVAR LOOK 💖</button>
+                </div>
+
+                <div class="galeria-looks-container">
+                    <h3>MEUS LOOKS SALVOS</h3>
+                    <div id="saved-outfits-grid" class="outfits-grid">
+                        <p id="no-outfits-msg" style="color: #666; font-style: italic; font-size: 0.9rem; margin-top: 20px;">Nenhum look salvo ainda. Monte um ao lado! ✨</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="contato">
+            <div class="closet-container" style="background: white; color: black;">
+                <h2 style="color: #ff007f;">CONTATO</h2>
+                <form onsubmit="event.preventDefault(); alert('Enviado!');">
+                    <input type="text" placeholder="Nome:" style="border: 1px solid #ccc; margin-bottom: 10px; width: 100%; padding: 10px; border-radius: 10px;">
+                    <input type="email" placeholder="Email:" style="border: 1px solid #ccc; margin-bottom: 10px; width: 100%; padding: 10px; border-radius: 10px;">
+                    <button type="submit" class="pink-btn">Enviar</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <nav class="mobile-nav">
+        <a href="#" onclick="showSection('home')"><span>🏠</span>Home</a>
+        <a href="#" onclick="showSection('sobre')"><span>💖</span>Sobre</a>
+        <a href="#" onclick="showSection('closet')"><span>👗</span>Closet</a>
+        <a href="#" onclick="showSection('montagem')"><span>✨</span>Looks</a>
+        <a href="#" onclick="showSection('login-section')"><span>🔒</span>Login</a>
+    </nav>
+
+    <script src="script.js"></script>
+    <script>
+        // Executa a validação visual imediatamente após o carregamento da estrutura
+        verificarLoginExistente();
+    </script>
+</body>
+</html>

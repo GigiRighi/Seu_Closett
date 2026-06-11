@@ -1,0 +1,17 @@
+{
+    "name": "Closet Y2K",
+    "short_name": "Closet",
+    "description": "Closet virtual estilo anos 2000",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ff00ff",
+    "theme_color": "#ff00ff",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "icon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ]
+}
