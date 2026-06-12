@@ -1,3 +1,4 @@
+require('dotenv').config(); // <-- Adicione isso na primeira linha do arquivo
 const express = require('express');
 const { Pool } = require('pg');
 const cors = require('cors');
@@ -8,14 +9,12 @@ const app = express();
 app.use(express.json({ limit: '50mb' }));
 app.use(cors());
 
-// CONFIGURAÇÃO DO SEU BANCO POSTGRES
-// Substitua pelos dados reais da sua conexão que aparece no VS Code
+// CONFIGURAÇÃO DO BANCO NEON (Protegido por variáveis de ambiente)
 const pool = new Pool({
-    user: 'postgres',          // seu usuário do banco
-    host: 'localhost',
-    database: 'seu_banco',     // nome do seu banco de dados
-    password: 'sua_senha',     // sua senha do banco
-    port: 5432,
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
 // ROTA 1: Salvar nova roupa no banco
@@ -56,7 +55,8 @@ app.post('/api/looks', async (req, res) => {
     }
 });
 
-// Inicia o servidor backend na porta 3000
-app.listen(3000, () => {
-    console.log('🚀 Servidor do Closet rodando em http://localhost:3000');
+/// Procure a linha do app.listen no final do arquivo e mude para:
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`🚀 Servidor rodando na porta ${PORT}`);
 });
