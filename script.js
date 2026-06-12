@@ -2,7 +2,11 @@
  * SEU CLOSET - JavaScript Principal
  * Controle de navegação, segurança de rotas, login persistente,
  * simulador, closet e galeria de looks salvos isolados por usuário.
+ * INTEGRADO COM BACKEND RENDER E BANCO NEON.
  */
+
+// URL base do seu servidor no Render
+const BACKEND_URL = 'https://seu-closet-backend.onrender.com';
 
 // 1. Estados Globais (Iniciam carregando dados da memória do navegador)
 let usuarioLogado = localStorage.getItem('usuarioLogado') === 'true';
@@ -189,7 +193,7 @@ function changeItem(type, direction) {
     }
 }
 
-// Salva o Look na galeria lateral e INTEGRADO com seu Backend Neon
+// Salva o Look na galeria lateral e INTEGRADO com seu Render + Neon
 async function saveCurrentOutfit() {
     const topImgSrc = document.getElementById('top-img').src;
     const bottomImgSrc = document.getElementById('bottom-img').src;
@@ -215,9 +219,9 @@ async function saveCurrentOutfit() {
     // Atualiza a exibição visual da galeria lateral imediatamente
     renderizarLookNaGaleria(novoLook, true);
 
-    // 2. INTEGRAÇÃO COM BACKEND NEON: Envia para o seu server.js
+    // 2. INTEGRAÇÃO COM BACKEND NO RENDER: Envia os dados para a nuvem
     try {
-        const response = await fetch('http://localhost:3000/api/looks', {
+        const response = await fetch(`${BACKEND_URL}/api/looks`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -231,11 +235,10 @@ async function saveCurrentOutfit() {
 
         const dados = await response.json();
         if (dados.success) {
-            console.log("Look sincronizado e salvo com sucesso no banco Neon!", dados.look);
+            console.log("Look sincronizado e salvo com sucesso no banco Neon via Render!", dados.look);
         }
     } catch (erro) {
-        console.error("Erro ao enviar dados para o servidor Neon:", erro);
-        // Não bloqueia o fluxo do usuário caso o servidor local esteja desligado
+        console.error("Erro ao enviar dados para o servidor Render:", erro);
     }
 
     alert("Look salvo de forma permanente na sua galeria! 💖🕶️");
@@ -341,7 +344,7 @@ function bindCameraEvent() {
     }
 }
 
-// Salva a peça na lista de roupas ISOLADA por usuário e envia ao servidor
+// Salva a peça na lista de roupas ISOLADA por usuário e envia ao Render
 async function saveUploadedPiece() {
     const categoriaTexto = document.getElementById('piece-type').value; // 'top' ou 'bottom'
     const nomeInput = document.getElementById('nome-roupa').value || "Nova Peça";
@@ -363,9 +366,9 @@ async function saveUploadedPiece() {
     roupasSalvas[categoriaTexto].unshift(fotoTemporariaBase64);
     localStorage.setItem(chaveRoupas, JSON.stringify(roupasSalvas));
 
-    // 2. INTEGRAÇÃO COM BACKEND NEON: Envia para a rota de roupas
+    // 2. INTEGRAÇÃO COM BACKEND NO RENDER: Envia para a nuvem
     try {
-        await fetch('http://localhost:3000/api/roupas', {
+        await fetch(`${BACKEND_URL}/api/roupas`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -378,7 +381,7 @@ async function saveUploadedPiece() {
             })
         });
     } catch (erro) {
-        console.error("Erro ao sincronizar roupa com o banco Neon:", erro);
+        console.error("Erro ao sincronizar roupa com o servidor Render:", erro);
     }
 
     const imgElement = document.getElementById(categoriaTexto + '-img');
